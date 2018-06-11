@@ -51,6 +51,12 @@
 #  become: True
 #  when: cowrie_exists.stat.exists == False
 
+- name: Cowrie | Create virtualenv
+  pip:
+    virtualenv = "{{ cowrie_directory }}/cowrie-env"
+    requirements="{{ cowrie_directory}}/requirements.txt"
+  become: True
+
 - name: Cowrie | Set directory owner
   file:
     path: "{{ cowrie_directory }}"
@@ -59,10 +65,3 @@
     recurse: yes
     state: directory
   become: True
-
-- name: Cowrie | Create virtualenv
-  pip:
-    virtualenv = "{{ cowrie_directory }}/cowrie-env"
-    requirements="{{ cowrie_directory}}/requirements.txt"
-  become: True
-  become_user: cowrie
