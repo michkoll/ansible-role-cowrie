@@ -20,13 +20,13 @@
 
 - name: Cowrie | Check if cowrie exists already
   stat:
-    path: "{{ cowrie_directory }}"
-  register: cowrie_cwd
+    path: "{{ cowrie_directory }}/setup.py"
+  register: cowrie_exists
 
 - name: Cowrie | Clone cowrie repository
   shell: git clone https://github.com/micheloosterhof/cowrie.git /opt/cowrie
   become: True
-  when: cowrie_cwd.stat.isdir is undefined
+  when: cowrie_exists.stat.exists is undefined
 
 - name: Cowrie | Set directory owner
   file:
