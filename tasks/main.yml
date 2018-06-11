@@ -24,9 +24,15 @@
   register: cowrie_exists
 
 - name: Cowrie | Clone cowrie repository
-  shell: git clone https://github.com/micheloosterhof/cowrie.git /opt/cowrie
-  become: True
-  when: cowrie_exists.stat.exists == False
+  git:
+    repo: https://github.com/micheloosterhof/cowrie.git
+    dest: "{{ cowrie_directory }}"
+    force: yes
+
+#- name: Cowrie | Clone cowrie repository
+#  shell: git clone https://github.com/micheloosterhof/cowrie.git /opt/cowrie
+#  become: True
+#  when: cowrie_exists.stat.exists == False
 
 - name: Cowrie | Set directory owner
   file:
