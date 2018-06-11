@@ -2,7 +2,7 @@
 # tasks file for cowrie
 - name: Cowrie | Install dependencies
   apt:
-    name: {{ item }}
+    name: "{{ item }}"
   become: True
   with_items:
     - "{{ cowrie_apt_dependencies }}"
@@ -15,4 +15,4 @@
   user:
     name: cowrie
     home: /opt/cowrie
-    password: {{ cowrie_password.stdout }}
+    password: "{{ cowrie_password.stdout }}"
