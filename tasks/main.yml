@@ -26,7 +26,7 @@
 - name: Cowrie | Clone cowrie repository
   shell: git clone https://github.com/micheloosterhof/cowrie.git /opt/cowrie
   become: True
-  when: cowrie_exists.stat.exists is undefined
+  when: cowrie_exists.stat.exists == False
 
 - name: Cowrie | Set directory owner
   file:
