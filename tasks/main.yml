@@ -24,6 +24,13 @@
   when: cowrie_cwd_exists.stat.exists is defined and cowrie_cwd_exists.stat.exists
           and cowrie_exists.stat.exists is defined and cowrie_exists.stat.exists == False
 
+- name: Cowrie | Clone cowrie repository
+  git:
+    repo: https://github.com/micheloosterhof/cowrie.git
+    dest: "{{ cowrie_directory }}"
+    force: yes
+  when: cowrie_exists.stat.exists is defined and cowrie_exists.stat.exists == False
+
 - name: Cowrie | Generate password
   shell: date | md5sum | awk '{print $1; }'
   register: cowrie_password
@@ -35,12 +42,7 @@
     password: "{{ cowrie_password.stdout }}"
   become: True
 
-- name: Cowrie | Clone cowrie repository
-  git:
-    repo: https://github.com/micheloosterhof/cowrie.git
-    dest: "{{ cowrie_directory }}"
-    force: yes
-  when: cowrie_exists.stat.exists is defined and cowrie_exists.stat.exists == False
+
 
 #- name: Cowrie | Clone cowrie repository
 #  shell: git clone https://github.com/micheloosterhof/cowrie.git /opt/cowrie
