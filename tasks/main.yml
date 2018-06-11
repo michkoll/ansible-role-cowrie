@@ -14,5 +14,31 @@
 - name: Cowrie | Create cowrie user
   user:
     name: cowrie
-    home: /opt/cowrie
+    home: "{{ cowrie_directory }}"
     password: "{{ cowrie_password.stdout }}"
+  become: True
+
+- name: Cowrie | Check if cowrie exists already
+  stat:
+    path: "{{ cowrie_directory }}"
+  register: cowrie_cwd
+
+- name: Cowrie | Clone cowrie repository
+  shell: git clone https://github.com/micheloosterhof/cowrie.git /opt/cowrie
+  become: True
+  when: cowrie_cwd.stat.isdir is defined and cowrie_cwd.stat.isdir
+
+- name: Cowrie | Set directory owner
+  file:
+    path: "{{ cowrie_directory }}"
+    owner: cowrie
+    group: cowrie
+    recurse: yes
+    state: directory
+  become: True
+
+- name: Cowrie | Create virtualenv
+  pip:
+    virtualenv = "{{ cowrie_directory }}/cowrie-env"
+    virtualenv_python = "python2.7"
+    requirements="{{ cowrie_directory}}/requirements.txt"

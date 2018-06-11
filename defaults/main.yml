@@ -9,3 +9,5 @@ cowrie_apt_dependencies:
   - libpython-dev
   - python2.7-minimal
   - authbind
+
+cowrie_directory: "/opt/cowrie"
