@@ -26,7 +26,7 @@
 - name: Cowrie | Clone cowrie repository
   shell: git clone https://github.com/micheloosterhof/cowrie.git /opt/cowrie
   become: True
-  when: cowrie_cwd.stat.isdir is defined and cowrie_cwd.stat.isdir
+  when: cowrie_cwd.stat.isdir is undefined
 
 - name: Cowrie | Set directory owner
   file:
