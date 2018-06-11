@@ -3,6 +3,7 @@
 cowrie_apt_dependencies:
   - git
   - python-virtualenv
+  - python-pip
   - libssl-dev
   - libffi-dev
   - build-essential
