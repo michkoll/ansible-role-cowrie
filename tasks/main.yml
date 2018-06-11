@@ -40,5 +40,4 @@
 - name: Cowrie | Create virtualenv
   pip:
     virtualenv = "{{ cowrie_directory }}/cowrie-env"
-    virtualenv_python = "python2.7"
     requirements="{{ cowrie_directory}}/requirements.txt"
