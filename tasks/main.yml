@@ -53,8 +53,8 @@
 
 - name: Cowrie | Create virtualenv
   pip:
-    virtualenv = "{{ cowrie_directory }}/cowrie-env"
-    requirements="{{ cowrie_directory}}/requirements.txt"
+    virtualenv: "{{ cowrie_directory }}/cowrie-env"
+    requirements: "{{ cowrie_directory}}/requirements.txt"
   become: True
 
 - name: Cowrie | Set directory owner
