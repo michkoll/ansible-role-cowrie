@@ -30,6 +30,7 @@
     dest: "{{ cowrie_directory }}"
     force: yes
   when: cowrie_exists.stat.exists is defined and cowrie_exists.stat.exists == False
+  become: True
 
 - name: Cowrie | Generate password
   shell: date | md5sum | awk '{print $1; }'
