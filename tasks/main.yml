@@ -21,7 +21,7 @@
   file:
     state: absent
     path: "{{ cowrie_directory }}"
-  when: cowrie_cwd_exists.stat.exists defined and cowrie_cwd_exists.stat.exists
+  when: cowrie_cwd_exists.stat.exists is defined and cowrie_cwd_exists.stat.exists
           and cowrie_exists.stat.exists is defined and cowrie_exists.stat.exists == False
 
 - name: Cowrie | Generate password
