@@ -34,12 +34,14 @@
 - name: Cowrie | Generate password
   shell: date | md5sum | awk '{print $1; }'
   register: cowrie_password
+  changed_when: False
 
 - name: Cowrie | Create cowrie user
   user:
     name: cowrie
     home: "{{ cowrie_directory }}"
     password: "{{ cowrie_password.stdout }}"
+    update_password: on_create
   become: True
 
 
@@ -62,3 +64,5 @@
   pip:
     virtualenv = "{{ cowrie_directory }}/cowrie-env"
     requirements="{{ cowrie_directory}}/requirements.txt"
+  become: True
+  become_user: cowrie
