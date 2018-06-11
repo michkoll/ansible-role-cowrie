@@ -1,2 +1,18 @@
 ---
 # tasks file for cowrie
+- name: Cowrie | Install dependencies
+  apt:
+    name: {{ item }}
+  become: True
+  with_items:
+    - "{{ cowrie_apt_dependencies }}"
+
+- name: Cowrie | Generate password
+  shell: date | md5sum | awk '{print $1; }'
+  register: cowrie_password
+
+- name: Cowrie | Create cowrie user
+  user:
+    name: cowrie
+    home: /opt/cowrie
+    password: {{ cowrie_password.stdout }}

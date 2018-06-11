@@ -1,2 +1,11 @@
 ---
 # defaults file for cowrie
+cowrie_apt_dependencies:
+  - git
+  - python-virtualenv
+  - libssl-dev
+  - libffi-dev
+  - build-essential
+  - libpython-dev
+  - python2.7-minimal
+  - authbind
