@@ -1,5 +1,14 @@
 ---
 # tasks file for cowrie
+
+- name: Allow TEMP APT Iptables
+  iptables: chain=TCP-OUT protocol=tcp state=present action=insert ctstate=NEW destination_port=80 jump=LOGALLOW
+  become: true
+
+- name: Allow TEMP APT Iptables 443
+  iptables: chain=TCP-OUT protocol=tcp state=present action=insert ctstate=NEW destination_port=443 jump=LOGALLOW
+  become: true
+
 - name: Cowrie | Install dependencies
   apt:
     name: "{{ item }}"
@@ -31,6 +40,15 @@
     force: yes
   when: cowrie_exists.stat.exists is defined and cowrie_exists.stat.exists == False
   become: True
+
+- name: Drop TEMP APT Iptables
+  iptables: chain=TCP-OUT protocol=tcp state=absent action=insert ctstate=NEW destination_port=80 jump=LOGALLOW
+  become: true
+
+- name: DROP TEMP APT Iptables 443
+  iptables: chain=TCP-OUT protocol=tcp state=absent action=insert ctstate=NEW destination_port=443 jump=LOGALLOW
+  become: true
+
 
 - name: Cowrie | Generate password
   shell: date | md5sum | awk '{print $1; }'
