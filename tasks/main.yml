@@ -74,6 +74,7 @@
     chdir: "{{ cowrie_directory }}/bin"
   become: True
   become_user: cowrie
+  ignore_errors: True
 
 - name: Cowrie | Allow SSH in Port 2222
   iptables:
@@ -83,7 +84,6 @@
     action: insert
     ctstate: NEW
     destination_port: 2222
-    jump: LOGALLOW
   notify: iptables_save
   become: True
 
@@ -106,7 +106,6 @@
     action: insert
     ctstate: NEW
     destination_port: 2223
-    jump: LOGALLOW
   notify: iptables_save
   become: True
 
