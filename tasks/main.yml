@@ -84,6 +84,7 @@
     action: insert
     ctstate: NEW
     destination_port: 2222
+    jump: LOGALLOW
   notify: iptables_save
   become: True
 
@@ -106,6 +107,7 @@
     action: insert
     ctstate: NEW
     destination_port: 2223
+    jump: LOGALLOW
   notify: iptables_save
   become: True
 
