@@ -12,3 +12,17 @@ cowrie_apt_dependencies:
   - authbind
 
 cowrie_directory: "/opt/cowrie"
+
+cowrie_hostname: "userdb"
+
+# Possible values are userdb, random or none
+cowrie_auth_method: "random"
+
+# Services configuration
+cowrie_ssh_enabled: "true"
+cowrie_sftp_enabled: "true"
+cowrie_telnet_enabled: "true"
+
+# Output configuration
+cowrie_output_json: "true"
+cowrie_output_json_path: "log/cowrie.json"

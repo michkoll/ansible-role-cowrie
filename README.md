@@ -10,6 +10,31 @@ TODO
 
 Role Variables
 --------------
+Short overview of the role variables and default values defined in `defaults/main.yml`.
+
+```yaml
+cowrie_hostname: userdb
+```
+Hostname for the honeypot, displayed by the shell prompt of the virtual environment. If you are using multiple instances you have to define the hostname in inventory variables per host.
+
+```yaml
+cowrie_auth_method: "random"
+```
+Defining the ssh auth method. Possible values are `userdb`, `random` or `none`.
+
+```yaml
+cowrie_ssh_enabled: "true"
+cowrie_sftp_enabled: "true"
+cowrie_telnet_enabled: "true"
+```
+Activate or deactivate honeypot services.
+
+```yaml
+cowrie_output_json: "true"
+cowrie_output_json_path: "log/cowrie.json"
+```
+Configure logging output. At the moment only jsonlog is possible.
+
 
 TODO
 
