@@ -2,7 +2,7 @@
 # handlers file for cowrie
 
 - name: iptables_save
-  shell: iptables-save > /etc/iptables-rules
+  shell: iptables-save > /etc/iptables/rules.v4
   become: True
 
 #- name: restart iptables-persistent
