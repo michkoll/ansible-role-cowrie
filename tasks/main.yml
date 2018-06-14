@@ -105,7 +105,7 @@
     ctstate: NEW
     destination_port: 2222
     jump: LOGALLOW
-  notify: restart iptables-persistent
+  notify: iptables_save
   become: True
 
 - name: Cowrie | Redirect SSH Port (22) to Port 2222
@@ -116,7 +116,7 @@
     destination_port: 22
     jump: REDIRECT
     to_ports: 2222
-  notify: restart iptables-persistent
+  notify: iptables_save
   become: True
 
 - name: Cowrie | Allow telnet in Port 2223
@@ -128,7 +128,7 @@
     ctstate: NEW
     destination_port: 2223
     jump: LOGALLOW
-  notify: restart iptables-persistent
+  notify: iptables_save
   become: True
 
 - name: Cowrie | Redirect SSH Port (22) to Port 2222
@@ -139,5 +139,5 @@
     destination_port: 23
     jump: REDIRECT
     to_ports: 2223
-  notify: restart iptables-persistent
+  notify: iptables_save
   become: True
