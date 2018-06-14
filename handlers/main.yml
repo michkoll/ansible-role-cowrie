@@ -5,8 +5,15 @@
   shell: iptables-save > /etc/iptables-rules
   become: True
 
+#- name: restart iptables-persistent
+#  service:
+#    name: netfilter-persistent
+#    state: restarted
+#  become: True
+
 - name: restart iptables-persistent
-  service:
-    name: netfilter-persistent
-    state: restarted
+  shell: >
+    sleep 5s && service netfilter-persistent restart
   become: True
+  async: 10
+  poll: 0
