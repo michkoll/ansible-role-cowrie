@@ -36,4 +36,5 @@ cowrie_output_mysql_port: "3306"
 
 cowrie_output_mysql_apt_dependencies:
   - mariadb-server
+  - libmariadbclient-dev
   - python-mysqldb
