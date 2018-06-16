@@ -41,4 +41,4 @@
 
 - pip:
     name: mysqlclient
-    virtualenv: ""{{ cowrie_directory }}/cowrie-env"
+    virtualenv: "{{ cowrie_directory }}/cowrie-env"
