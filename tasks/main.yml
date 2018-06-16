@@ -16,12 +16,7 @@
   with_items:
     - "{{ cowrie_apt_dependencies }}"
 
-- name: Cowrie | Install Output MySQL dependencies
-  apt:
-    name: "{{ item }}"
-  become: True
-  with_items:
-    - "{{ cowrie_output_mysql_apt_dependencies }}"
+- include: configure-mysql.yml
   when: cowrie_output_mysql is defined and cowrie_output_mysql
 
 - name: Cowrie | Check if cowrie cwd exists already

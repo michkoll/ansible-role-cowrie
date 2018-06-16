@@ -1,0 +1,30 @@
+---
+
+- name: Cowrie | Install Output MySQL dependencies
+  apt:
+    name: "{{ item }}"
+  become: True
+  with_items:
+    - "{{ cowrie_output_mysql_apt_dependencies }}"
+
+
+- name: Cowrie | Create cowrie database
+  mysql_db:
+    state: present
+    name: "{{ cowrie_output_mysql_database }}"
+
+- name: Cowrie | Add database user
+  mysql_user:
+    name: "{{ cowrie_output_mysql_username }}"
+    password: "{{ cowrie_output_mysql_password }}"
+    encrypted: no
+    priv: "{{ cowrie_output_mysql_database }}.*:ALL"
+    state: present
+
+- name: Cowrie | Import database scheme
+  mysql_db:
+    name: "{{ cowrie_output_mysql_database }}"
+    state: import
+    target: "{{ cowrie_directory}}/doc/sql/mysql.sql"
+    login_user: "{{ cowrie_output_mysql_username }}"
+    login_password: "{{ cowrie_output_mysql_password }}"
