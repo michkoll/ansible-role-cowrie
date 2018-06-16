@@ -16,8 +16,7 @@
   with_items:
     - "{{ cowrie_apt_dependencies }}"
 
-- include: configure-mysql.yml
-  when: cowrie_output_mysql is defined and cowrie_output_mysql
+
 
 - name: Cowrie | Check if cowrie cwd exists already
   stat:
@@ -65,6 +64,9 @@
     virtualenv: "{{ cowrie_directory }}/cowrie-env"
     requirements: "{{ cowrie_directory}}/requirements.txt"
   become: True
+
+- include: configure-mysql.yml
+  when: cowrie_output_mysql is defined and cowrie_output_mysql
 
 - name: Cowrie | Drop Apt rule temp 80
   iptables: chain=TCP-OUT protocol=tcp state=absent action=insert ctstate=NEW destination_port=80 jump=LOGALLOW
