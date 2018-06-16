@@ -12,6 +12,7 @@
   mysql_db:
     state: present
     name: "{{ cowrie_output_mysql_database }}"
+  become: True
 
 - name: Cowrie | Add database user
   mysql_user:
@@ -20,6 +21,7 @@
     encrypted: no
     priv: "{{ cowrie_output_mysql_database }}.*:ALL"
     state: present
+  become: True
 
 - name: Cowrie | Import database scheme
   mysql_db:
