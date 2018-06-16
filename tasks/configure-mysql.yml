@@ -38,3 +38,7 @@
     permissions: rx
     recursive: yes
     state: present
+
+- pip:
+    name: mysqlclient
+    virtualenv: ""{{ cowrie_directory }}/cowrie-env"
