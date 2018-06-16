@@ -544,13 +544,13 @@ logfile = {{ cowrie_output_json_path }}
 # MySQL logging requires an extra Python module: pip install mysql-python
 #
 #[output_mysql]
-#enabled = false
-#host = localhost
-#database = cowrie
-#username = cowrie
-#password = secret
-#port = 3306
-#debug = false
+enabled = {{ cowrie_output_mysql | default(false) }}
+host = {{ cowrie_output_mysql_host | default(localhost) }}
+database = {{ cowrie_output_mysql_database | default(cowrie) }}
+username = {{ cowrie_output_mysql_username | default(cowrie) }}
+password = {{ cowrie_output_mysql_password | default(fullsecret) }}
+port = {{ cowrie_output_mysql_port | default(3306) }}
+debug = false
 
 # Rethinkdb output module
 # Rethinkdb output module requires extra Python module: pip install rethinkdb

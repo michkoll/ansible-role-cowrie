@@ -1,11 +1,11 @@
 ---
 # tasks file for cowrie
 
-- name: Allow TEMP APT Iptables
+- name: Cowrie | Insert Apt rule temp 80
   iptables: chain=TCP-OUT protocol=tcp state=present action=insert ctstate=NEW destination_port=80 jump=LOGALLOW
   become: true
 
-- name: Allow TEMP APT Iptables 443
+- name: Allow | Insert Apt rule temp 80
   iptables: chain=TCP-OUT protocol=tcp state=present action=insert ctstate=NEW destination_port=443 jump=LOGALLOW
   become: true
 
@@ -15,6 +15,14 @@
   become: True
   with_items:
     - "{{ cowrie_apt_dependencies }}"
+
+- name: Cowrie | Install Output MySQL dependencies
+  apt:
+    name: "{{ item }}"
+  become: True
+  with_items:
+    - "{{ cowrie_output_mysql_apt_dependencies }}"
+  when: cowrie_output_mysql ist defined and cowrie_output_mysql == True
 
 - name: Cowrie | Check if cowrie cwd exists already
   stat:
@@ -63,11 +71,11 @@
     requirements: "{{ cowrie_directory}}/requirements.txt"
   become: True
 
-- name: Drop TEMP APT Iptables
+- name: Cowrie | Drop Apt rule temp 80
   iptables: chain=TCP-OUT protocol=tcp state=absent action=insert ctstate=NEW destination_port=80 jump=LOGALLOW
   become: true
 
-- name: DROP TEMP APT Iptables 443
+- name: Cowrie | Drop Apt rule temp 443
   iptables: chain=TCP-OUT protocol=tcp state=absent action=insert ctstate=NEW destination_port=443 jump=LOGALLOW
   become: true
 

@@ -26,3 +26,13 @@ cowrie_telnet_enabled: "true"
 # Output configuration
 cowrie_output_json: "true"
 cowrie_output_json_path: "log/cowrie.json"
+
+cowrie_output_mysql: "true"
+cowrie_output_mysql_host: "localhost"
+cowrie_output_mysql_database: "cowrie"
+cowrie_output_mysql_username: "cowrie"
+cowrie_output_mysql_password: "fullsecret"
+cowrie_output_mysql_port: "3306"
+
+cowrie_output_mysql_apt_dependencies:
+  - mariadb-server
