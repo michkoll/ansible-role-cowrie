@@ -28,3 +28,4 @@
     target: "{{ cowrie_directory}}/doc/sql/mysql.sql"
     login_user: "{{ cowrie_output_mysql_username }}"
     login_password: "{{ cowrie_output_mysql_password }}"
+  ignore_errors: yes
