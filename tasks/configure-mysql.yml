@@ -7,12 +7,19 @@
   with_items:
     - "{{ cowrie_output_mysql_apt_dependencies }}"
 
+- name: Cowrie | Clear cowrie database
+  mysql_db:
+    state: absent
+    name: "{{ cowrie_output_mysql_database }}"
+  become: True
+  when: cowrie_clear_database is defined and cowrie_clear_database
 
 - name: Cowrie | Create cowrie database
   mysql_db:
     state: present
     name: "{{ cowrie_output_mysql_database }}"
   become: True
+  notify: restart cowrie
 
 - name: Cowrie | Add database user
   mysql_user:

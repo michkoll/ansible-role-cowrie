@@ -36,6 +36,14 @@ cowrie_output_json_path: "log/cowrie.json"
 Configure logging output. At the moment only jsonlog is possible.
 
 
+Extra Variables
+---------------
+
+```bash
+ansible-playbook site.yml --extra-vars "cowrie_clear_database=true"
+```
+Reset cowrie database. All data will be deleted.
+
 TODO
 
 Dependencies

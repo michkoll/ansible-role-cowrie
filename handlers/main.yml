@@ -17,3 +17,11 @@
   become: True
   async: 10
   poll: 0
+
+- name: restart cowrie
+  shell: ./cowrie restart
+  args:
+    chdir: "{{ cowrie_directory }}/bin"
+  become: True
+  become_user: cowrie
+  ignore_errors: True
