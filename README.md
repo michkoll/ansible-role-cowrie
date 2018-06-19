@@ -6,7 +6,9 @@ Ansible role for setting up the medium interaction honeypot [Cowrie](https://git
 Requirements
 ------------
 
-TODO
+Written and tested on Ubuntu 16.06
+
+Python need to be installed.
 
 Role Variables
 --------------
@@ -33,7 +35,17 @@ Activate or deactivate honeypot services.
 cowrie_output_json: "true"
 cowrie_output_json_path: "log/cowrie.json"
 ```
-Configure logging output. At the moment only jsonlog is possible.
+Configure json logging output.
+
+```yaml
+cowrie_output_mysql: "true"
+cowrie_output_mysql_host: "localhost"
+cowrie_output_mysql_database: "cowrie"
+cowrie_output_mysql_username: "cowrie"
+cowrie_output_mysql_password: "secret"
+cowrie_output_mysql_port: "3306"
+```
+Configure mysql logging output. If mysql output is activated, mysql server and necessary packages will be installed automatically.
 
 
 Extra Variables
@@ -44,21 +56,22 @@ ansible-playbook site.yml --extra-vars "cowrie_clear_database=true"
 ```
 Reset cowrie database. All data will be deleted.
 
-TODO
 
 Dependencies
 ------------
 
-TODO
+Dependency to hardening role for changing ssh port and basic iptables rules.
+
+See https://github.com/michkoll/ansible-role-hardening for more details.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+After installing the role (```requirements.xml``` or as dependency) you can use the role as described here:
 
-    - hosts: servers
+    - hosts: cowrie
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: cowrie}
 
 License
 -------
@@ -68,4 +81,5 @@ MIT
 Author Information
 ------------------
 
+&copy; 2018
 Written by [Michael Koll](https://github.com/michkoll)
