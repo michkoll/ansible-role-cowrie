@@ -92,7 +92,7 @@
         dest: "{{ cowrie_directory }}/data/userdb.txt"
         owner: cowrie
         group: cowrie
-        become: True
+      become: True
   when: cowrie_auth_method is defined and cowrie_auth_method == "userdb"
 
 
