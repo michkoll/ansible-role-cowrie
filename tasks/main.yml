@@ -16,8 +16,6 @@
   with_items:
     - "{{ cowrie_apt_dependencies }}"
 
-
-
 - name: Cowrie | Check if cowrie cwd exists already
   stat:
     path: "{{ cowrie_directory }}"
@@ -91,6 +89,21 @@
     group: cowrie
     owner: cowrie
   become: True
+
+- name: Cowrie | Create userdb file
+  block:
+    - command: ./generate-userdb.py
+      args:
+        chdir: "{{ role_path }}"/files
+      delegate_to: localhost
+    - file:
+        src: "{{ role_path }}"/files/userdb.txt
+        dest: "{{ cowrie_directory }}"/data/userdb.txt
+        owner: cowrie
+        group: cowrie      
+  when: cowrie_auth_method is defined and cowrie_auth_method == "userdb"
+  become: True
+  become_user: cowrie
 
 - name: Cowrie | Restart cowrie
   shell: ./cowrie restart
