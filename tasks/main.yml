@@ -73,15 +73,6 @@
   iptables: chain=TCP-OUT protocol=tcp state=absent action=insert ctstate=NEW destination_port=443 jump=LOGALLOW
   become: true
 
-- name: Cowrie | Set directory owner
-  file:
-    path: "{{ cowrie_directory }}"
-    owner: cowrie
-    group: cowrie
-    recurse: yes
-    state: directory
-  become: True
-
 - name: Cowrie | Copy configuration file
   template:
     src: cowrie.cfg.j2
@@ -103,7 +94,15 @@
         group: cowrie
   when: cowrie_auth_method is defined and cowrie_auth_method == "userdb"
   become: True
-  become_user: cowrie
+
+- name: Cowrie | Set directory owner
+  file:
+    path: "{{ cowrie_directory }}"
+    owner: cowrie
+    group: cowrie
+    recurse: yes
+    state: directory
+  become: True
 
 - name: Cowrie | Restart cowrie
   shell: ./cowrie restart
