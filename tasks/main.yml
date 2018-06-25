@@ -83,7 +83,7 @@
 
 - name: Cowrie | Create userdb file
   block:
-    - command: ./generate-userdb.py
+    - command: python generate-userdb.py
       args:
         chdir: "{{ role_path }}/files"
       delegate_to: localhost
