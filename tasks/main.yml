@@ -87,7 +87,7 @@
       args:
         chdir: "{{ role_path }}/files"
       delegate_to: localhost
-    - file:
+    - copy:
         src: "{{ role_path }}/files/userdb.txt"
         dest: "{{ cowrie_directory }}/data/userdb.txt"
         owner: cowrie
