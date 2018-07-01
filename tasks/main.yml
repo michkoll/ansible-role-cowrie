@@ -37,6 +37,7 @@
   git:
     repo: https://github.com/micheloosterhof/cowrie.git
     dest: "{{ cowrie_directory }}"
+    version: b10921fa455030c2d42612f16954c0c6b1ea9374
   #when: cowrie_exists.stat.exists is defined and cowrie_exists.stat.exists == False
   become: True
 
@@ -156,5 +157,29 @@
     destination_port: 23
     jump: REDIRECT
     to_ports: 2223
+  notify: iptables_save
+  become: True
+
+- name: Cowrie | Allow http to port 80
+  iptables:
+    chain: TCP-OUT
+    protocol: tcp
+    state: present
+    action: insert
+    ctstate: NEW
+    destination_port: 80
+    jump: LOGALLOW
+  notify: iptables_save
+  become: True
+
+- name: Cowrie | Allow http to port 443
+  iptables:
+    chain: TCP-OUT
+    protocol: tcp
+    state: present
+    action: insert
+    ctstate: NEW
+    destination_port: 80
+    jump: LOGALLOW
   notify: iptables_save
   become: True
